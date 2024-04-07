@@ -24,6 +24,10 @@ koaApp.use(async (ctx, next) => {
 });
 
 async function listRecords(ctx, next) {
+  if (!redisClient.connected || !redisClient.ready) {
+    await redisClient.disconnect()
+    await redisClient.connect()
+  }
   const  num   = Math.max(ctx.params.num || 3, 1)
   const keys   = (await redisClient.keys('*')).sort((a,b) => {
     const ts_a = new Date(a).getTime()
@@ -40,6 +44,10 @@ async function listRecords(ctx, next) {
 }
 
 async function reportRecord(ctx, next){
+  if (!redisClient.connected || !redisClient.ready) {
+    await redisClient.disconnect()
+    await redisClient.connect()
+  }
   // ctx.body =   ctx.request.body 
   const epoch_ts      = Date.now()
   const ts            = (new Date(epoch_ts)).toISOString()
