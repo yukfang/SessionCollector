@@ -62,7 +62,7 @@ async function reportRecord(ctx, next){
     ttp       : ctx.headers['ttp']              || "",
     Referer   : ctx.headers['Referer']          || "",
     PageUrl   : ctx.headers['page-url']         || "",
-    raw: ctx.request.body
+    raw: ctx.headers['_tt_params'] 
   }
   
   // Save to Redis 
