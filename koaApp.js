@@ -50,7 +50,7 @@ async function reportRecord(ctx, next){
     await redisClient.connect()
   }
   const pl       = ctx.request.body
-  console.log(`${pl} is `)
+  console.log(`${pl} is ${JSON.stringify(pl)}`)
   const epoch_ts      = Date.now()
   const ts            = (new Date(epoch_ts)).toISOString()
   // const iso_2_epoch   = (new Date(epoch_ts)).getTime()
