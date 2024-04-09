@@ -67,6 +67,11 @@ async function reportRecord(ctx, next){
     ttp       : ctx.headers['ttp']              || "",
     Referer   : ctx.headers['Referer']          || "",
     PageUrl   : ctx.headers['page-url']         || "",
+
+    pre_ttclid : pl.pre_ttclid || 'pre_ttclid',
+    pre_ttclid1 :JSON.parse(pl).pre_ttclid || 'pre_ttclid1',
+
+
     payload   : pl || _tt_params,
     raw       : pl                     || "123"
   }
