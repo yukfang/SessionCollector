@@ -60,6 +60,7 @@ async function reportRecord(ctx, next){
   ctx.body = {
     ts,
     ip: ctx.ip,
+    _tt_params,
     ua        : ctx.headers['user-agent']               ,
     _ttp      : ctx.cookies.get('_ttp')         || "",
     ttclid    : ctx.headers['ttclid']           || ts,
@@ -72,7 +73,6 @@ async function reportRecord(ctx, next){
   // Save to Redis 
   await redisClient.set(ts, JSON.stringify(ctx.body))
 
-  next()
 }
 
 router.get('/', (ctx, next) =>{
