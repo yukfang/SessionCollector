@@ -55,6 +55,8 @@ async function reportRecord(ctx, next){
   const ts            = (new Date(epoch_ts)).toISOString()
   // const iso_2_epoch   = (new Date(epoch_ts)).getTime()
 
+  const _tt_params = ctx.headers['_tt_params'] || null
+
   ctx.body = {
     ts,
     ip: ctx.ip,
