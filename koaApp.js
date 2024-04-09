@@ -69,7 +69,7 @@ async function reportRecord(ctx, next){
     PageUrl   : ctx.headers['page-url']         || "",
 
     pre_ttclid : pl.pre_ttclid || 'pre_ttclid',
-    pre_ttclid1 :JSON.parse(pl).pre_ttclid || 'pre_ttclid1',
+    // pre_ttclid1 :JSON.parse(pl).pre_ttclid || 'pre_ttclid1',
 
 
     payload   : pl || _tt_params,
