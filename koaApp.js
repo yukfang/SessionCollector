@@ -67,6 +67,7 @@ async function reportRecord(ctx, next){
     ttp       : ctx.headers['ttp']              || "",
     Referer   : ctx.headers['Referer']          || "",
     PageUrl   : ctx.headers['page-url']         || "",
+    payload: pl,
     raw       : JSON.stringify(pl)                         || "123"
   }
   
