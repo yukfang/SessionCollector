@@ -48,7 +48,7 @@ async function reportRecord(ctx, next){
     await redisClient.disconnect()
     await redisClient.connect()
   }
-  // ctx.body =   ctx.request.body 
+  const payload       = ctx.request.body 
   const epoch_ts      = Date.now()
   const ts            = (new Date(epoch_ts)).toISOString()
   // const iso_2_epoch   = (new Date(epoch_ts)).getTime()
@@ -56,13 +56,13 @@ async function reportRecord(ctx, next){
   ctx.body = {
     ts,
     ip: ctx.ip,
-    ua: ctx.headers['user-agent'],
+    ua        : ctx.headers['user-agent']               ,
     _ttp      : ctx.cookies.get('_ttp')         || "",
     ttclid    : ctx.headers['ttclid']           || "",
     ttp       : ctx.headers['ttp']              || "",
     Referer   : ctx.headers['Referer']          || "",
     PageUrl   : ctx.headers['page-url']         || "",
-    raw: ctx.headers['_tt_params'] 
+    raw       : payload                          || ''
   }
   
   // Save to Redis 
@@ -75,6 +75,7 @@ router.get('/', (ctx, next) =>{
 })
 router.get('/list/:num?', listRecords)
 router.get('/report',     reportRecord)
+router.post('/report',    reportRecord)
 
 
 // response
