@@ -5,7 +5,8 @@ const Router = require('koa-router');
 const redisConn = require('./redis')
 const koaApp = new Koa();
 const router = new Router();
-koaApp.use(router.routes()).use(router.allowedMethods()).use(bodyParser())
+koaApp.use(bodyParser())
+koaApp.use(router.routes()).use(router.allowedMethods())
 
 let redisClient = null
 
@@ -48,7 +49,8 @@ async function reportRecord(ctx, next){
     await redisClient.disconnect()
     await redisClient.connect()
   }
-  const payload       = ctx.request.body 
+  const pl       = ctx.request.body
+  console.log(`${pl} is `)
   const epoch_ts      = Date.now()
   const ts            = (new Date(epoch_ts)).toISOString()
   // const iso_2_epoch   = (new Date(epoch_ts)).getTime()
@@ -58,15 +60,17 @@ async function reportRecord(ctx, next){
     ip: ctx.ip,
     ua        : ctx.headers['user-agent']               ,
     _ttp      : ctx.cookies.get('_ttp')         || "",
-    ttclid    : ctx.headers['ttclid']           || "",
+    ttclid    : ctx.headers['ttclid']           || ts,
     ttp       : ctx.headers['ttp']              || "",
     Referer   : ctx.headers['Referer']          || "",
     PageUrl   : ctx.headers['page-url']         || "",
-    raw       : payload                          || ''
+    raw       : JSON.stringify(pl)                         || "123"
   }
   
   // Save to Redis 
   await redisClient.set(ts, JSON.stringify(ctx.body))
+
+  next()
 }
 
 router.get('/', (ctx, next) =>{
@@ -74,7 +78,7 @@ router.get('/', (ctx, next) =>{
   next();
 })
 router.get('/list/:num?', listRecords)
-router.get('/report',     reportRecord)
+// router.get('/report',     reportRecord)
 router.post('/report',    reportRecord)
 
 
