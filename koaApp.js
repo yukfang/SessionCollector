@@ -60,7 +60,7 @@ async function reportRecord(ctx, next){
 
   if(ttclid) {
     const pre_ttclid = payload.pre_ttclid || ''
-    const cookies = payload.cookie
+    const cookie = payload.cookie
 
 
     ctx.body = {
