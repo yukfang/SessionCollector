@@ -1,4 +1,5 @@
 const fs = require('fs');
+const crypto = require('crypto');
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const Router = require('koa-router');
@@ -66,7 +67,9 @@ async function reportRecord(ctx, next){
     ctx.body = {
       _ttp          : getCookieValue(cookie, '_ttp')      ,
       ttclid,
+      ttclid_hash   : sha256(ttclid),
       pre_ttclid, 
+      // pre_ttclid_hash: 
       // cookie,
       // Referer   : ctx.headers['Referer']          || "",
       // PageUrl   : ctx.headers['page-url']         || "",
@@ -75,7 +78,6 @@ async function reportRecord(ctx, next){
       
       // headers: ctx.headers,
       // payload
-
       ts,
       ip            : ctx.headers['client-ip']        ,
       ua            : ctx.headers['user-agent']       ,
@@ -120,7 +122,11 @@ async function init() {
   }
 }
 
-
+function sha256(input) {
+  const hash = crypto.createHash('sha256');
+  hash.update(input);
+  return hash.digest('hex');
+}
 
 
 function getCookieValue(cookieString, key) {
