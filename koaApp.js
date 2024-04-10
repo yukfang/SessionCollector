@@ -76,7 +76,7 @@ async function reportRecord(ctx, next){
       Referer   : "https://himinigame.com/"       ,
       PageUrl   : "https://himinigame.com/"       ,
       
-      headers: ctx.headers,
+      // headers: ctx.headers,
       payload
     }
     
