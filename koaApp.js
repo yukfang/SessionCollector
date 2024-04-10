@@ -49,36 +49,43 @@ async function reportRecord(ctx, next){
     await redisClient.disconnect()
     await redisClient.connect()
   }
-  const pl       = ctx.request.body
-  console.log(`${pl} is ${JSON.stringify(pl)}`)
+  const payload       = ctx.request.body
+  // console.log(`${pl} is ${JSON.stringify(pl)}`)
   const epoch_ts      = Date.now()
   const ts            = (new Date(epoch_ts)).toISOString()
   // const iso_2_epoch   = (new Date(epoch_ts)).getTime()
 
-  const _tt_params = ctx.headers['_tt_params'] || null
+  // const _tt_params = ctx.headers['_tt_params'] || null
+  const ttclid = payload?.ttclid
 
-  ctx.body = {
-    ts,
-    ip: ctx.ip,
-    _tt_params,
-    ua        : ctx.headers['user-agent']               ,
-    _ttp      : ctx.cookies.get('_ttp')         || "",
-    ttclid    : ctx.headers['ttclid']           || ts,
-    ttp       : ctx.headers['ttp']              || "",
-    Referer   : ctx.headers['Referer']          || "",
-    PageUrl   : ctx.headers['page-url']         || "",
-
-    pre_ttclid : pl.pre_ttclid || 'pre_ttclid',
-    // pre_ttclid1 :JSON.parse(pl).pre_ttclid || 'pre_ttclid1',
+  if(ttclid) {
+    const pre_ttclid = payload.pre_ttclid || ''
+    const cookies = payload.cookie
 
 
-    // payload   : pl || _tt_params,
-    raw       : pl                     || "123"
-  }
+    ctx.body = {
+      ts,
+      ip: ctx.ip,
+      ttclid,
+      pre_ttclid, 
+      cookie,
   
-  // Save to Redis 
-  await redisClient.set(ts, JSON.stringify(ctx.body))
+      // _tt_params,
+      ua        : ctx.headers['user-agent']               ,
+      _ttp      : ctx.cookies.get('_ttp')         || "",
+      ttclid    : ctx.headers['ttclid']           || ts,
+      ttp       : ctx.headers['ttp']              || "",
+      Referer   : ctx.headers['Referer']          || "",
+      PageUrl   : ctx.headers['page-url']         || "",
 
+      payload
+    }
+    
+    // Save to Redis 
+    await redisClient.set(ts, JSON.stringify(ctx.body))
+  } else {
+    ctx.body = ''
+  }
 }
 
 router.get('/', (ctx, next) =>{
