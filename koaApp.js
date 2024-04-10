@@ -66,7 +66,7 @@ async function reportRecord(ctx, next){
 
     ctx.body = {
       ts,
-      ip            : ctx.ip,
+      ip            : ctx.headers['client-ip']        ,
       ua            : ctx.headers['user-agent']       ,
       _ttp      : getCookieValue(cookie, '_ttp')      ,
       ttclid,
