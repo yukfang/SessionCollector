@@ -83,7 +83,9 @@ async function reportRecord(ctx, next){
     // Save to Redis 
     await redisClient.set(ts, JSON.stringify(ctx.body))
   } else {
-    ctx.body = {}
+    ctx.body = {
+      msg: 'No ttclid found'
+    }
   }
 }
 
