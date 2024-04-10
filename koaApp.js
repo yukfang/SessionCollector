@@ -58,22 +58,21 @@ async function reportRecord(ctx, next){
   // const _tt_params = ctx.headers['_tt_params'] || null
   const ttclid = payload?.ttclid
 
+  ctx.set('Content-Type', 'application/json');
   if(ttclid) {
     const pre_ttclid = payload.pre_ttclid || ''
     const cookie = payload.cookie
 
-
     ctx.body = {
       ts,
-      ip: ctx.ip,
+      ip            : ctx.ip,
+      ua            : ctx.headers['user-agent']       ,
       ttclid,
       pre_ttclid, 
       cookie,
   
       // _tt_params,
-      ua        : ctx.headers['user-agent']               ,
       _ttp      : ctx.cookies.get('_ttp')         || "",
-      ttclid    : ctx.headers['ttclid']           || ts,
       ttp       : ctx.headers['ttp']              || "",
       Referer   : ctx.headers['Referer']          || "",
       PageUrl   : ctx.headers['page-url']         || "",
@@ -84,7 +83,7 @@ async function reportRecord(ctx, next){
     // Save to Redis 
     await redisClient.set(ts, JSON.stringify(ctx.body))
   } else {
-    ctx.body = ''
+    ctx.body = {}
   }
 }
 
