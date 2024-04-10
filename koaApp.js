@@ -72,7 +72,7 @@ async function reportRecord(ctx, next){
     // pre_ttclid1 :JSON.parse(pl).pre_ttclid || 'pre_ttclid1',
 
 
-    payload   : pl || _tt_params,
+    // payload   : pl || _tt_params,
     raw       : pl                     || "123"
   }
   
