@@ -62,17 +62,18 @@ async function reportRecord(ctx, next){
   if(ttclid) {
     const pre_ttclid = payload.pre_ttclid || ''
     const cookie = payload.cookie
+    
 
     ctx.body = {
       ts,
       ip            : ctx.ip,
       ua            : ctx.headers['user-agent']       ,
+      _ttp      : getCookieValue(cookie, '_ttp')      ,
       ttclid,
       pre_ttclid, 
       cookie,
   
       // _tt_params,
-      _ttp      : ctx.cookies.get('_ttp')         || "",
       ttp       : ctx.headers['ttp']              || "",
       Referer   : ctx.headers['Referer']          || "",
       PageUrl   : ctx.headers['page-url']         || "",
@@ -118,6 +119,35 @@ async function init() {
     console.log("Init [PING] -> Redis response : " + await redisClient.ping());  
   }
 }
+
+
+
+
+function getCookieValue(cookieString, key) {
+  // Split the cookie string into individual cookies
+  const cookies = cookieString.split(';');
+
+  // Iterate through each cookie to find the desired key-value pair
+  for (const cookie of cookies) {
+    // Trim any leading or trailing whitespace
+    const [cookieKey, cookieValue] = cookie.trim().split('=');
+    // Check if the cookie key matches the desired key
+    if (cookieKey === key) {
+      // Return the value if found
+      return cookieValue;
+    }
+  }
+
+  // Return null if the key is not found
+  return null;
+}
+
+// Example usage:
+const cookieString = 'cookie1=value1; cookie2=value2; cookie3=value3';
+const key = 'cookie2';
+const value = getCookieValue(cookieString, key);
+console.log(`Value for key '${key}': ${value}`);
+
 
 module.exports = {
   koaApp,
