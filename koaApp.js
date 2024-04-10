@@ -64,9 +64,6 @@ async function reportRecord(ctx, next){
     const cookie = payload.cookie
 
     ctx.body = {
-      ts,
-      ip            : ctx.headers['client-ip']        ,
-      ua            : ctx.headers['user-agent']       ,
       _ttp          : getCookieValue(cookie, '_ttp')      ,
       ttclid,
       pre_ttclid, 
@@ -77,7 +74,11 @@ async function reportRecord(ctx, next){
       PageUrl   : "https://himinigame.com/"       ,
       
       // headers: ctx.headers,
-      payload
+      // payload
+
+      ts,
+      ip            : ctx.headers['client-ip']        ,
+      ua            : ctx.headers['user-agent']       ,
     }
     
     // Save to Redis 
