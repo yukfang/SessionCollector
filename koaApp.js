@@ -62,21 +62,20 @@ async function reportRecord(ctx, next){
   if(ttclid) {
     const pre_ttclid = payload.pre_ttclid || ''
     const cookie = payload.cookie
-    
 
     ctx.body = {
       ts,
       ip            : ctx.headers['client-ip']        ,
       ua            : ctx.headers['user-agent']       ,
-      _ttp      : getCookieValue(cookie, '_ttp')      ,
+      _ttp          : getCookieValue(cookie, '_ttp')      ,
       ttclid,
       pre_ttclid, 
       cookie,
-  
-      // _tt_params,
-      ttp       : ctx.headers['ttp']              || "",
-      Referer   : ctx.headers['Referer']          || "",
-      PageUrl   : ctx.headers['page-url']         || "",
+      // Referer   : ctx.headers['Referer']          || "",
+      // PageUrl   : ctx.headers['page-url']         || "",
+      Referer   : "https://himinigame.com/"       ,
+      PageUrl   : "https://himinigame.com/"       ,
+      
       headers: ctx.headers,
       payload
     }
