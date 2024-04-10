@@ -67,7 +67,7 @@ async function reportRecord(ctx, next){
       _ttp          : getCookieValue(cookie, '_ttp')      ,
       ttclid,
       pre_ttclid, 
-      cookie,
+      // cookie,
       // Referer   : ctx.headers['Referer']          || "",
       // PageUrl   : ctx.headers['page-url']         || "",
       Referer   : "https://himinigame.com/"       ,
