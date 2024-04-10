@@ -57,30 +57,30 @@ async function reportRecord(ctx, next){
   // const iso_2_epoch   = (new Date(epoch_ts)).getTime()
 
   // const _tt_params = ctx.headers['_tt_params'] || null
-  const ttclid = payload?.ttclid
+  const ttclid      = payload?.ttclid
+  const pre_ttclid  = payload?.pre_ttclid
+  const cookie      = payload?.cookie
+  const _ttp        = getCookieValue(cookie, '_ttp')
 
   ctx.set('Content-Type', 'application/json');
-  if(ttclid) {
-    const pre_ttclid = payload.pre_ttclid || ''
-    const cookie = payload.cookie
-
+  if(ttclid && _ttp) {
     ctx.body = {
-      _ttp          : getCookieValue(cookie, '_ttp')      ,
+      _ttp,
       ttclid,
       ttclid_hash   : sha256(ttclid),
       pre_ttclid, 
-      // pre_ttclid_hash: 
+
       // cookie,
       // Referer   : ctx.headers['Referer']          || "",
       // PageUrl   : ctx.headers['page-url']         || "",
-      Referer   : "https://himinigame.com/"       ,
-      PageUrl   : "https://himinigame.com/"       ,
+      // Referer   : "https://himinigame.com/"       ,
+      // PageUrl   : "https://himinigame.com/"       ,
       
       // headers: ctx.headers,
       // payload
-      ts,
       ip            : ctx.headers['client-ip']        ,
       ua            : ctx.headers['user-agent']       ,
+      ts
     }
     
     // Save to Redis 
