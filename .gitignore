@@ -1,3 +1,4 @@
 node_modules
 localEnv.js
 package-lock.json
+.env 

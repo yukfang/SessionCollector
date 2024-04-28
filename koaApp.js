@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fs = require('fs');
 const crypto = require('crypto');
 const Koa = require('koa');
@@ -84,7 +85,7 @@ async function reportRecord(ctx, next){
     }
     
     // Save to Redis 
-    await redisClient.set(ts, JSON.stringify(ctx.body))
+    await redisClient.set(ctx.body.ttclid_hash, JSON.stringify(ctx.body))
   } else {
     ctx.body = {
       msg: 'No ttclid found'
