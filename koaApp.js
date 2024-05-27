@@ -1,4 +1,3 @@
-require('dotenv').config();
 const fs = require('fs');
 const crypto = require('crypto');
 const Koa = require('koa');
@@ -52,7 +51,7 @@ async function reportRecord(ctx, next){
     await redisClient.connect()
   }
   const payload       = ctx.request.body
-  // console.log(`${pl} is ${JSON.stringify(pl)}`)
+  console.log(`${pl} is ${JSON.stringify(pl)}`)
   const epoch_ts      = Date.now()
   const ts            = (new Date(epoch_ts)).toISOString()
   // const iso_2_epoch   = (new Date(epoch_ts)).getTime()
@@ -98,7 +97,7 @@ router.get('/', (ctx, next) =>{
   next();
 })
 router.get('/list/:num?', listRecords)
-// router.get('/report',     reportRecord)
+router.get('/report',     reportRecord)
 router.post('/report',    reportRecord)
 
 
@@ -150,11 +149,6 @@ function getCookieValue(cookieString, key) {
 }
 
 // Example usage:
-const cookieString = 'cookie1=value1; cookie2=value2; cookie3=value3';
-const key = 'cookie2';
-const value = getCookieValue(cookieString, key);
-console.log(`Value for key '${key}': ${value}`);
-
 
 module.exports = {
   koaApp,
