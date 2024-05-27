@@ -84,7 +84,8 @@ async function reportRecord(ctx, next){
     }
     
     // Save to Redis 
-    await redisClient.set(ctx.body.ttclid_hash, JSON.stringify(ctx.body))
+    const cacheResult = await redisClient.set(ctx.body.ttclid_hash, JSON.stringify(ctx.body))
+    console.log(`set redis cache = ${cacheResult}`)
   } else {
     ctx.body = {
       msg: 'No ttclid found'
