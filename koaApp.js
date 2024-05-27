@@ -46,6 +46,7 @@ async function listRecords(ctx, next) {
 }
 
 async function reportRecord(ctx, next){
+  console.log(`Get a report request`)
   if (!redisClient.connected || !redisClient.ready) {
     await redisClient.disconnect()
     await redisClient.connect()
