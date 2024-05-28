@@ -72,7 +72,7 @@ async function reportRecord(ctx, next){
       
       // headers: ctx.headers,
       // payload,
-      // header  : ctx.headers,
+      header  : ctx.headers,
       ip            : ctx.headers['client-ip']        ,
       ua            : ctx.headers['user-agent']       ,
       ts
@@ -82,7 +82,6 @@ async function reportRecord(ctx, next){
     const cacheResult = await redis.set(ctx.body.ttclid_hash, JSON.stringify(ctx.body))
     console.log(`set redis cache = ${cacheResult}`)
   } else {
-    ctx.body = ctx.headers
   }
 }
 
