@@ -72,7 +72,7 @@ async function reportRecord(ctx, next){
       
       // headers: ctx.headers,
       // payload,
-      header  : ctx.headers,
+      // header  : ctx.headers,
       ip            : ctx.headers['client-ip']        ,
       ua            : ctx.headers['user-agent']       ,
       ts
