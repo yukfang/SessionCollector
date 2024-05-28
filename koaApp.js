@@ -52,10 +52,12 @@ async function reportRecord(ctx, next){
   const pre_ttclid  = payload?.pre_ttclid
   const cookie      = payload?.cookie
   const _ttp        = getCookieValue(cookie, '_ttp')
+  const pixel_code  = payload?.pixelid 
 
   ctx.set('Content-Type', 'application/json');
   if(ttclid && _ttp) {
     ctx.body = {
+      pixel_code,
       _ttp,
       ttclid,
       ttclid_hash   : sha256(ttclid),
