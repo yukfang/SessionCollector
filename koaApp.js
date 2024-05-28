@@ -3,7 +3,8 @@ const crypto = require('crypto');
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const Router = require('koa-router');
-const redis = require('./redisIO')
+const redis = require('./redisIO');
+const { header } = require('koa/lib/request');
 const koaApp = new Koa();
 const router = new Router();
 koaApp.use(bodyParser())
@@ -71,6 +72,7 @@ async function reportRecord(ctx, next){
       
       // headers: ctx.headers,
       // payload,
+      header  : ctx.headers,
       ip            : ctx.headers['client-ip']        ,
       ua            : ctx.headers['user-agent']       ,
       ts
