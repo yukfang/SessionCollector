@@ -51,7 +51,6 @@ async function reportRecord(ctx, next){
   const ttclid      = payload?.ttclid
   const pre_ttclid  = payload?.pre_ttclid
   const cookie      = payload?.cookie
-  console.log(cookie)
   const _ttp        = getCookieValue(cookie, '_ttp')
 
   ctx.set('Content-Type', 'application/json');
