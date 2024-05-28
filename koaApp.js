@@ -65,8 +65,8 @@ async function reportRecord(ctx, next){
       pre_ttclid, 
 
       // cookie,
-      Referer   : ctx.headers['Referer']     || 'Referer'   ,
-      PageUrl   : ctx.headers['page-url']       ,
+      // Referer   : ctx.headers['Referer']     || 'Referer'   ,
+      // PageUrl   : ctx.headers['page-url']       ,
       // Referer   : "https://himinigame.com/"       ,
       // PageUrl   : "https://himinigame.com/"       ,
       
