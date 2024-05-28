@@ -42,8 +42,7 @@ async function listRecords(ctx, next) {
 
 async function reportRecord(ctx, next){
 
-  const payload       = ctx.request.body || {"cookie":"_ga=GA1.1.247642188.1716791938; _tt_enable_cookie=1; _ttp=zr3xa7SWgzl6wa9n66RdYG8P97c; __gads=ID=3c223c10f8857ad6:T=1716791940:RT=1716793560:S=ALNI_MaZSaAl05VBfUMZ3TD4FzvAO68Lzg; __gpi=UID=00000e2e9525e7c6:T=1716791940:RT=1716793560:S=ALNI_MYtENS2yqnXj8V0udA5HpLTELELpw; __eoi=ID=ea9c2c50d1e0c300:T=1716791940:RT=1716793560:S=AA-AfjZulDGXR96nQ6VhJL6uV8Ty; _ga_J5P36Y96XS=GS1.1.1716791938.1.1.1716793895.0.0.0","pixelid":"CATFG7BC77U5NQUHDT40"}
-  console.log(`Payload = ${payload}`)
+  const payload       = ctx.request.body
   const epoch_ts      = Date.now()
   const ts            = (new Date(epoch_ts)).toISOString()
   // const iso_2_epoch   = (new Date(epoch_ts)).getTime()
