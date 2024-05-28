@@ -4,7 +4,6 @@ const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const Router = require('koa-router');
 const redis = require('./redisIO');
-const { header } = require('koa/lib/request');
 const koaApp = new Koa();
 const router = new Router();
 koaApp.use(bodyParser())
