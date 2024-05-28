@@ -63,15 +63,13 @@ async function reportRecord(ctx, next){
       ttclid_hash   : sha256(ttclid),
       pre_ttclid, 
 
-      // cookie,
-      Referer   : ctx.headers['referer']    || 'Referer'   ,
       // PageUrl   : ctx.headers['page-url']       ,
       // Referer   : "https://himinigame.com/"       ,
       // PageUrl   : "https://himinigame.com/"       ,
       
-      // headers: ctx.headers,
       // payload,
-      header  : ctx.headers,
+      // header  : ctx.headers,
+      referer       : ctx.headers['referer']    || ''   ,
       ip            : ctx.headers['client-ip']        ,
       ua            : ctx.headers['user-agent']       ,
       ts
