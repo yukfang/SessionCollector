@@ -64,13 +64,13 @@ async function reportRecord(ctx, next){
       pre_ttclid, 
 
       // cookie,
-      // Referer   : ctx.headers['Referer']          || "",
-      // PageUrl   : ctx.headers['page-url']         || "",
+      Referer   : ctx.headers['Referer']        ,
+      PageUrl   : ctx.headers['page-url']       ,
       // Referer   : "https://himinigame.com/"       ,
       // PageUrl   : "https://himinigame.com/"       ,
       
       // headers: ctx.headers,
-      // payload
+      // payload,
       ip            : ctx.headers['client-ip']        ,
       ua            : ctx.headers['user-agent']       ,
       ts
@@ -80,9 +80,7 @@ async function reportRecord(ctx, next){
     const cacheResult = await redis.set(ctx.body.ttclid_hash, JSON.stringify(ctx.body))
     console.log(`set redis cache = ${cacheResult}`)
   } else {
-    ctx.body = {
-      msg: 'No ttclid found'
-    }
+    ctx.body = ctx.headers
   }
 }
 
@@ -118,6 +116,12 @@ function sha256(input) {
 
 
 function getCookieValue(cookieString, key) {
+  if(cookieString === null || cookieString === undefined) {
+    console.log(`Request doesn't have a cookie...`)
+    return ''
+  } else {
+    console.log(cookieString)
+  }
   // Split the cookie string into individual cookies
   const cookies = cookieString.split(';');
 
