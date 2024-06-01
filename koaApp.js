@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const Router = require('koa-router');
-const redis = require('./redisIO');
+const {redis1, redis2} = require('./redisIO');
 const koaApp = new Koa();
 const router = new Router();
 koaApp.use(bodyParser())
@@ -26,14 +26,14 @@ koaApp.use(async (ctx, next) => {
 
 async function listRecords(ctx, next) {
   const  num   = Math.max(ctx.params.num || 3, 1)
-  const keys   = (await redis.keys('*')).sort((a,b) => {
+  const keys   = (await redis1.keys('*')).sort((a,b) => {
     const ts_a = new Date(a).getTime()
     const ts_b = new Date(b).getTime()
     return ts_b - ts_a // ts desc
   }).slice(0, Math.min(num, 10)); 
 
   if (keys.length > 0) {
-      const values = await redis.mget(keys);
+      const values = await redis1.mget(keys);
       ctx.body = values.map(v=>JSON.parse(v))
   } else {
       console.log('No keys found.');
@@ -76,8 +76,13 @@ async function reportRecord(ctx, next){
     }
     
     // Save to Redis 
-    const cacheResult = await redis.set(ctx.body.ttclid_hash, JSON.stringify(ctx.body))
-    console.log(`set redis cache = ${cacheResult}`)
+    const cacheResult1 = await redis1.set(ctx.body.ttclid_hash, JSON.stringify(ctx.body))
+    console.log(`set redis1 cache = ${cacheResult1} `)
+
+    const cacheResult2 = await redis2.set(ctx.body.ttclid_hash, JSON.stringify(ctx.body))
+    console.log(`set redis2 cache = ${cacheResult2}`)
+
+
   } else {
   }
 }
