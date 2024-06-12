@@ -85,7 +85,11 @@ async function reportRecord(ctx, next){
     } catch(e) {
       
     }
+
+    ctx.body = 'OK'
   } else {
+    ctx.body = 'Non-OK'
+    ctx.status = 500
   }
 }
 
