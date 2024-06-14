@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const Router = require('koa-router');
-const {redis1, redis2} = require('./redisIO2');
+const {redis1, redis2} = require('./redisIO');
 const koaApp = new Koa();
 const router = new Router();
 koaApp.use(bodyParser())
