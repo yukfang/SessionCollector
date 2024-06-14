@@ -55,7 +55,7 @@ async function reportRecord(ctx, next){
   const pixel_code  = payload?.pixelid 
 
   ctx.set('Content-Type', 'application/json');
-  if(ttclid && _ttp) {
+  if(ttclid) {
     ctx.body = {
       pixel_code,
       _ttp,
@@ -85,10 +85,8 @@ async function reportRecord(ctx, next){
     } catch(e) {
       
     }
-
-    ctx.body = 'OK'
   } else {
-    ctx.body = 'Non-OK'
+    ctx.body = 'No Click ID'
     ctx.status = 500
   }
 }
