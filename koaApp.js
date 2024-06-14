@@ -80,8 +80,8 @@ async function reportRecord(ctx, next){
     console.log(`set redis1 cache = ${cacheResult1} `)
 
     try {
-      const cacheResult2 = await redis2.set(ctx.body.ttclid_hash, JSON.stringify(ctx.body))
-      console.log(`set redis2 cache = ${cacheResult2}`)
+      // const cacheResult2 = await redis2.set(ctx.body.ttclid_hash, JSON.stringify(ctx.body))
+      // console.log(`set redis2 cache = ${cacheResult2}`)
     } catch(e) {
       
     }
