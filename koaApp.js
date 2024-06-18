@@ -89,6 +89,8 @@ async function reportRecord(ctx, next){
     ctx.body = {
       payload, cookie
     }
+    console.log(`Error due to no ttclid`)
+    console.log(ctx.body)
     ctx.status = 500
   }
 }
