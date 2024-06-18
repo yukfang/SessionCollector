@@ -87,7 +87,7 @@ async function reportRecord(ctx, next){
     }
   } else {
     ctx.body = {
-      payload, cookie,
+      payload, 
       referer       : ctx.headers['referer']    || ''   ,
       ip            : ctx.headers['client-ip']        ,
       ua            : ctx.headers['user-agent']       
