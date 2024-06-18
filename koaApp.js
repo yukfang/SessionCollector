@@ -86,7 +86,9 @@ async function reportRecord(ctx, next){
       
     }
   } else {
-    ctx.body = 'No Click ID'
+    ctx.body = {
+      payload, cookie
+    }
     ctx.status = 500
   }
 }
