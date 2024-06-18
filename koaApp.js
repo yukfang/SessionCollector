@@ -129,7 +129,7 @@ function getCookieValue(cookieString, key) {
     console.log(`Request doesn't have a cookie...`)
     return ''
   } else {
-    console.log(cookieString)
+    // console.log(cookieString)
   }
   // Split the cookie string into individual cookies
   const cookies = cookieString.split(';');
