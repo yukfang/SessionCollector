@@ -85,6 +85,11 @@ async function reportRecord(ctx, next){
     } catch(e) {
       
     }
+  } else if(_ttp) {
+    console.log(`No ttclid but has _ttp " ${ctx.headers['client-ip']}, ${ctx.headers['user-agent']}`)
+    ctx.body = {
+      msg: "no ttclid"
+    }
   } else {
     ctx.body = {
       payload, 
@@ -92,7 +97,7 @@ async function reportRecord(ctx, next){
       ip            : ctx.headers['client-ip']        ,
       ua            : ctx.headers['user-agent']       
     }
-    console.log(`Error due to no ttclid`)
+    console.log(`Error due to no ttclid & _ttp`)
     console.log(ctx.body)
     ctx.status = 500
   }
