@@ -88,8 +88,29 @@ async function reportRecord(ctx, next){
   } else if(_ttp) {
     console.log(`No ttclid but has _ttp " ${ctx.headers['client-ip']}, ${ctx.headers['user-agent']}`)
     ctx.body = {
-      msg: "no ttclid"
+      pixel_code,
+      _ttp,
+      ttclid,
+      ttclid_hash   : sha256(ttclid),
+      pre_ttclid, 
+
+      // PageUrl   : ctx.headers['page-url']       ,
+      // Referer   : "https://himinigame.com/"       ,
+      // PageUrl   : "https://himinigame.com/"       ,
+      
+      // payload,
+      // header  : ctx.headers,
+      referer       : ctx.headers['referer']    || ''   ,
+      ip            : ctx.headers['client-ip']        ,
+      ua            : ctx.headers['user-agent']       ,
+      ts
     }
+    
+    // Save to Redis 
+    const cacheResult1 = await redis1.set(ctx.body.ttclid_hash, JSON.stringify(ctx.body))
+    console.log(`set redis1 cache = ${cacheResult1} `)
+    
+    ctx.status = 501
   } else {
     ctx.body = {
       payload, 
