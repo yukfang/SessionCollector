@@ -91,7 +91,7 @@ async function reportRecord(ctx, next){
       pixel_code,
       _ttp,
       ttclid,
-      ttclid_hash   : sha256(ttclid),
+      ttclid_hash   : sha256(''),
       pre_ttclid, 
 
       // PageUrl   : ctx.headers['page-url']       ,
