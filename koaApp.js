@@ -108,8 +108,8 @@ async function reportRecord(ctx, next){
     
     // Save to Redis 
     const cacheResult1 = await redis1.set(ctx.body.ttclid_hash, JSON.stringify(ctx.body))
-    console.log(`set redis1 cache = ${cacheResult1} `)
-    
+    console.log(`set redis1 cache = ${cacheResult1}, but give 501 `)
+
     ctx.status = 501
   } else {
     ctx.body = {
