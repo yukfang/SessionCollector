@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const Router = require('koa-router');
-const {redis1, redis2} = require('./redisIO');
+const {redis1} = require('./Redis/redisIO');
 const koaApp = new Koa();
 const router = new Router();
 koaApp.use(bodyParser())
@@ -78,13 +78,6 @@ async function reportRecord(ctx, next){
     // Save to Redis 
     const cacheResult1 = await redis1.set(ctx.body.ttclid_hash, JSON.stringify(ctx.body))
     console.log(`set redis1 cache = ${cacheResult1} `)
-
-    try {
-      // const cacheResult2 = await redis2.set(ctx.body.ttclid_hash, JSON.stringify(ctx.body))
-      // console.log(`set redis2 cache = ${cacheResult2}`)
-    } catch(e) {
-      
-    }
   } else if(_ttp) {
     console.log(`No ttclid but has _ttp " ${ctx.headers['client-ip']}, ${ctx.headers['user-agent']}`)
     ctx.body = {
